@@ -270,3 +270,4 @@ service-account.json
 *.pfx
 generador_agentes.py
 load.ipynb
+.env/
