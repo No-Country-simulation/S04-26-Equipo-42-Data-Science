@@ -111,9 +111,6 @@ $RECYCLE.BIN/
 *.iws
 .idea_modules/
 
-# Jupyter Notebook
-.ipynb_checkpoints/
-*.ipynb
 
 # Sublime Text
 *.sublime-*
@@ -268,6 +265,14 @@ service-account.json
 *.crt
 *.cer
 *.pfx
-generador_agentes.py
-load.ipynb
 .env/
+
+# Datos intermedios (siempre ignorar)
+data/interim/*.parquet
+data/interim/*.csv
+
+# Datos crudos (opcional, comentado para que se suba el CSV de ejemplo)
+# data/raw/*.csv
+
+
+
