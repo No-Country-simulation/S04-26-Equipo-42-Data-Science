@@ -267,14 +267,11 @@ service-account.json
 *.pfx
 .env/
 
-
-
 # Datos intermedios (siempre ignorar)
 data/interim/
 
 # Datos crudos (opcional, comentado para que se suba el CSV de ejemplo)
 # data/raw/*.csv
 
-# Reportes generados
-reports/quality/*.html
+
 
