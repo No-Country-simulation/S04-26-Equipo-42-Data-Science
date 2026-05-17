@@ -268,7 +268,8 @@ service-account.json
 .env/
 
 # Datos intermedios (siempre ignorar)
-data/interim/
+data/interim/*.parquet
+data/interim/*.csv
 
 # Datos crudos (opcional, comentado para que se suba el CSV de ejemplo)
 # data/raw/*.csv
