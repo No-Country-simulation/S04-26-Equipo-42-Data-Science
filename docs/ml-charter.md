@@ -38,18 +38,19 @@ ConversaAI procesa mas de 2 millones de mensajes al mes en conversaciones de sop
 
 ### Targets disponibles (supervised learning)
 
-| Target | Tipo | Clases | Balance | Posible approach |
-|--------|------|--------|---------|-----------------|
-| `nivel_frustracion` | Clasificacion ordinal | 0 (55%), 1 (33%), 2 (12%) | Desbalanceado | Clasificador ordinal, F1-weighted |
-| `intencion` | Clasificacion multiclase | 4 clases (~25% c/u) | Balanceado | Clasificador flat, Accuracy/F1-macro |
-| `es_churn_risk` | Clasificacion binaria | 0 (88%), 1 (12%) | Desbalanceado | Balanced classes, AUC-PR |
-| `resolved` | Clasificacion binaria | 0 (78%), 1 (22%) | Desbalanceado | Outcome feature, no target principal |
+| Target              | Tipo                     | Clases                    | Balance       | Posible approach                     |
+| ------------------- | ------------------------ | ------------------------- | ------------- | ------------------------------------ |
+| `nivel_frustracion` | Clasificacion ordinal    | 0 (55%), 1 (33%), 2 (12%) | Desbalanceado | Clasificador ordinal, F1-weighted    |
+| `intencion`         | Clasificacion multiclase | 4 clases (~25% c/u)       | Balanceado    | Clasificador flat, Accuracy/F1-macro |
+| `es_churn_risk`     | Clasificacion binaria    | 0 (88%), 1 (12%)          | Desbalanceado | Balanced classes, AUC-PR             |
+| `resolved`          | Clasificacion binaria    | 0 (78%), 1 (22%)          | Desbalanceado | Outcome feature, no target principal |
 
 ---
 
 ## 3. ML Task Definition
 
 ### Tarea 1: Clasificacion de frustracion
+
 - **Target:** `nivel_frustracion` (0/1/2)
 - **Input:** `texto_clean` + features contextuales (turn_number, flow_name, agente)
 - **Tipo:** Clasificacion ordinal (o multiclase con perdida ordinal)
@@ -58,13 +59,15 @@ ConversaAI procesa mas de 2 millones de mensajes al mes en conversaciones de sop
 - **Baseline heuristico:** Regla de keywords de frustracion
 
 ### Tarea 2: Deteccion de intencion
+
 - **Target:** `intencion` (4 clases)
 - **Input:** `texto_clean` + `flow_name`
 - **Tipo:** Clasificacion multiclase
 - **Metrica principal:** F1-macro
-- **Baseline:** Zero-shot con modelos multilingues (plan original) vs supervisado real
+- **Baseline:** Zero-shot con modelos multilingues vs enfoque supervisado (evaluamos cual rinde mejor)
 
 ### Tarea 3: Prediccion de churn / abandono
+
 - **Target:** `es_churn_risk` (0/1)
 - **Input:** Features agregadas por sesion (frustracion promedio, resolved rate, duracion, cantidad de turnos)
 - **Tipo:** Clasificacion binaria con desbalanceo
@@ -72,6 +75,7 @@ ConversaAI procesa mas de 2 millones de mensajes al mes en conversaciones de sop
 - **Baseline:** Reglas heuristicas (frustracion sostenida + no resuelto)
 
 ### Tarea 4: Analisis de patrones (post-modelos)
+
 - **Objetivo:** Identificar correlaciones entre frustracion, intencion, y resultado
 - **No es un modelo per se** — es agregacion de los outputs de T1+T2+T3
 - **Output:** Dashboard con metricas agregadas por flujo, intent, agente, periodo
@@ -101,20 +105,22 @@ Deployment [Dashboard + reporte]
 
 ### Stack tecnologico
 
-| Componente | Herramienta | Skill asociado |
-|-----------|-------------|----------------|
-| Preprocesamiento texto | spaCy, expresiones regulares | NLP |
-| Feature engineering | pandas, scikit-learn | scikit-learn |
-| Clasificacion texto | scikit-learn (TF-IDF + lineal) / transformers | scikit-learn, NLP |
-| Clasificacion tabular | scikit-learn (Random Forest, XGBoost) | scikit-learn |
-| Evaluacion | scikit-learn metrics, confusion matrix | scikit-learn |
-| Experiment tracking | (TBD: WandB / MLflow) | — |
-| Dashboard | Streamlit | (futuro) |
-| Orquestacion | Notebooks estructurados + pipeline | ml-pipeline-workflow |
+| Componente             | Herramienta                                   | Skill asociado       |
+| ---------------------- | --------------------------------------------- | -------------------- |
+| Preprocesamiento texto | spaCy, expresiones regulares                  | NLP                  |
+| Feature engineering    | pandas, scikit-learn                          | scikit-learn         |
+| Clasificacion texto    | scikit-learn (TF-IDF + lineal) / transformers | scikit-learn, NLP    |
+| Clasificacion tabular  | scikit-learn (Random Forest, XGBoost)         | scikit-learn         |
+| Evaluacion             | scikit-learn metrics, confusion matrix        | scikit-learn         |
+| Experiment tracking    | (TBD: WandB / MLflow)                         | —                    |
+| Dashboard              | Streamlit                                     | (futuro)             |
+| Orquestacion           | Notebooks estructurados + pipeline            | ml-pipeline-workflow |
 
-### Nota sobre el plan original
+### Relacion con la planificacion de actividades
 
-El plan de `Planificacion de Actividades.md` asumia **"sin etiquetas previas"** y proponia `pysentimiento` y zero-shot. Dado que tenemos labels reales, el enfoque cambia a **modelos supervisados**, lo cual permite mayor precision y control. Mantenemos pysentimiento solo como baseline heuristico de comparacion.
+El documento `Planificacion de Actividades.md` plantea una estrategia solida para el proyecto, con recomendaciones tecnicas valiosas como el uso de `pysentimiento` para analisis de sentimiento y zero-shot para deteccion de intenciones. Esas recomendaciones estan pensadas para un escenario donde no hay datos etiquetados.
+
+Al revisar el dataset, descubrimos que si existen labels para frustracion, intencion, churn y resolucion. Esto amplia nuestras opciones: podemos mantener `pysentimiento` como baseline de comparacion y al mismo tiempo entrenar modelos supervisados que probablemente den mejor precision. Ambas aproximaciones son complementarias.
 
 ---
 
@@ -122,11 +128,11 @@ El plan de `Planificacion de Actividades.md` asumia **"sin etiquetas previas"** 
 
 ### Por tarea
 
-| Tarea | Metrica principal | Baseline heuristico | Objetivo minimo |
-|-------|-------------------|---------------------|-----------------|
-| Frustracion | F1-weighted | 0.55 (keyword rules) | >0.70 |
-| Intencion | F1-macro | 0.25 (random) | >0.85 |
-| Churn | AUC-PR | 0.30 (simple heuristic) | >0.50 |
+| Tarea       | Metrica principal | Baseline heuristico     | Objetivo minimo |
+| ----------- | ----------------- | ----------------------- | --------------- |
+| Frustracion | F1-weighted       | 0.55 (keyword rules)    | >0.70           |
+| Intencion   | F1-macro          | 0.25 (random)           | >0.85           |
+| Churn       | AUC-PR            | 0.30 (simple heuristic) | >0.50           |
 
 ### Estrategia de validacion
 
@@ -149,26 +155,26 @@ El plan de `Planificacion de Actividades.md` asumia **"sin etiquetas previas"** 
 
 ## 7. Riesgos y Mitigaciones
 
-| Riesgo | Probabilidad | Impacto | Mitigacion |
-|--------|-------------|---------|------------|
-| Labels de frustracion son heuristicas/sinteticas, no reales | Media | Alto | Validar con spot-check manual; si no correlacionan, pivotar a pysentimiento |
-| Dataset es 100% sintetico (no representa datos reales) | Alta | Alto | Documentar como limitacion; el pipeline debe funcionar con datos reales cambiando la fuente |
-| Desbalanceo en frustracion clase 2 (12%) y churn (12%) | Alta | Medio | Usar weighted loss, class weights, oversampling (SMOTE) |
-| texto_clean perdio informacion util al eliminar acentos/mayusculas | Media | Bajo | Evaluar usando texto_original como alternativa |
-| Sesiones de solo 3 turnos limitan analisis temporal | Alta | Bajo | Features de secuencia corta; considerar bigramas de intencion |
+| Riesgo                                                             | Probabilidad | Impacto | Mitigacion                                                                                  |
+| ------------------------------------------------------------------ | ------------ | ------- | ------------------------------------------------------------------------------------------- |
+| Labels de frustracion son heuristicas/sinteticas, no reales        | Media        | Alto    | Validar con spot-check manual; si no correlacionan, pivotar a pysentimiento                 |
+| Dataset es 100% sintetico (no representa datos reales)             | Alta         | Alto    | Documentar como limitacion; el pipeline debe funcionar con datos reales cambiando la fuente |
+| Desbalanceo en frustracion clase 2 (12%) y churn (12%)             | Alta         | Medio   | Usar weighted loss, class weights, oversampling (SMOTE)                                     |
+| texto_clean perdio informacion util al eliminar acentos/mayusculas | Media        | Bajo    | Evaluar usando texto_original como alternativa                                              |
+| Sesiones de solo 3 turnos limitan analisis temporal                | Alta         | Bajo    | Features de secuencia corta; considerar bigramas de intencion                               |
 
 ---
 
 ## 8. Roadmap CRISP-DM
 
-| Fase | Estado | Entregable |
-|------|--------|------------|
-| Business Understanding | ✅ Completado | `docs/conversa-ai.md`, `docs/ml-charter.md` |
-| Data Understanding | ✅ Completado | `docs/data-dictionary.md`, EDA notebook |
-| Data Preparation | ✅ Completado (DE) | Dataset preprocesado |
-| Modeling | 🔜 Pendiente | Notebooks: 02-sentiment, 03-intent, 04-patterns |
-| Evaluation | 🔜 Pendiente | Reporte de metricas, matriz de confusion |
-| Deployment | 🔜 Pendiente | Dashboard Streamlit, reporte ejecutivo |
+| Fase                   | Estado          | Entregable                                      |
+| ---------------------- | --------------- | ----------------------------------------------- |
+| Business Understanding | Completado      | `docs/conversa-ai.md`, `docs/ml-charter.md`     |
+| Data Understanding     | Completado      | `docs/data-dictionary.md`, EDA notebook         |
+| Data Preparation       | Completado (DE) | Dataset preprocesado                            |
+| Modeling               | Pendiente       | Notebooks: 02-sentiment, 03-intent, 04-patterns |
+| Evaluation             | Pendiente       | Reporte de metricas, matriz de confusion        |
+| Deployment             | Pendiente       | Dashboard Streamlit, reporte ejecutivo          |
 
 ---
 
