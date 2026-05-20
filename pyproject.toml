@@ -1,0 +1,17 @@
+[project]
+name = "sentiment-analysis"
+version = "0.1.0"
+description = "Modelo ML para analisis de sentimientos - Equipo 42"
+readme = "README.md"
+authors = [
+    { name = "luis-cm-linux", email = "115508520+luiscm17@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sentiment_analysis"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

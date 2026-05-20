@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "skills": {
+    "Sentiment Analysis": {
+      "source": "aj-geddes/useful-ai-prompts",
+      "sourceType": "github",
+      "skillPath": "skills/sentiment-analysis/SKILL.md",
+      "computedHash": "5f3463c15925957bb574f6089edda9eda360ce986e1ef6a31ba966de6eda5e77"
+    },
+    "exploratory-data-analysis": {
+      "source": "davila7/claude-code-templates",
+      "sourceType": "github",
+      "skillPath": "cli-tool/components/skills/scientific/exploratory-data-analysis/SKILL.md",
+      "computedHash": "0567655b147076fe3d85429c081bd2a06b427c01a6ae72f0606a2586b940d381"
+    },
+    "ml-pipeline-workflow": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/machine-learning-ops/skills/ml-pipeline-workflow/SKILL.md",
+      "computedHash": "a3d5f89d7f6b3e2ef1f9cfccc719d9610cf706090cf8243f7fe7dee7db0aaa00"
+    },
+    "nlp-natural-language-processing": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "skillPath": "nlp-natural-language-processing/SKILL.md",
+      "computedHash": "c71bf8d1310a5acce56c0ece0f0ae0b4c36c5dc905d2a02ac941187064fe6626"
+    },
+    "scikit-learn-best-practices": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "skillPath": "scikit-learn-best-practices/SKILL.md",
+      "computedHash": "b9947aa802df17bd1f097d4bc48ebbc60f1cb6bdd882a1c0e6129a32c0fbe9d8"
+    }
+  }
+}
