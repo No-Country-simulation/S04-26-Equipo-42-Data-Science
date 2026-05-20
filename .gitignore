@@ -238,6 +238,11 @@ docs/source/generated/
 !docker-compose.example.yml
 
 # --------------------------
+# SKILLS REGISTRY
+# --------------------------
+.atl/
+
+# --------------------------
 # PROYECTOS ESPECÍFICOS
 # --------------------------
 # React/Vue/Angular (si tienes frontend)

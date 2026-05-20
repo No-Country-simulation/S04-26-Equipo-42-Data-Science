@@ -1,0 +1,16 @@
+{
+  "model": "RandomForest + TF-IDF",
+  "target": "nivel_frustracion",
+  "features": [
+    "texto_clean",
+    "turn_number",
+    "flow_name",
+    "usuario"
+  ],
+  "baseline_accuracy": 1.0,
+  "rf_accuracy": 1.0,
+  "baseline_f1_weighted": 1.0,
+  "rf_f1_weighted": 1.0,
+  "date": "Mayo 2026",
+  "note": "Dataset deterministico. Baseline con reglas simples alcanza ~100%."
+}
