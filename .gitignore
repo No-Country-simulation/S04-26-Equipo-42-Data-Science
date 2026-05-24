@@ -281,3 +281,6 @@ data/interim/*.csv
 
 
 
+data_engineering/data/interim/data_limpia.parquet
+.gitignore
+data_engineering/data/raw/corpus_v2_final.csv
