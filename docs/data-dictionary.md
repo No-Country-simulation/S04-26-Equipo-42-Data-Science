@@ -62,8 +62,8 @@
 - `flow_name` mapea 1:1 con `intencion`:
   - `Acceso y Seguridad` → `error_login`
   - `Gestion de Cuenta` → `cambio_plan`
-  - `Soporte Tecnico y Despacho` → `logistica_envio`
-  - `Facturacion y Cobros` → `problema_pago`
+  - `Soporte Técnico y Despacho` → `logistica_envio`
+  - `Facturación y Cobros` → `problema_pago`
 
 ---
 

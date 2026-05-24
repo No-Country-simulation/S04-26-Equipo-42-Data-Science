@@ -42,40 +42,46 @@ Esto es consistente con la documentacion existente (`docs/data-dictionary.md`) q
 
 ## Sprint 2: Supervised Models (Methodological Exercise)
 
-### Objectives
-- Train supervised models for all three tasks following standard ML workflows
-- Compare against deterministic baselines discovered in EDA
-- Document the full modeling pipeline for reuse with real data
+:white_check_mark: COMPLETADO
 
-### Tasks
+### Objectives
+- Train supervised models for all three tasks following standard ML workflows ✅
+- Compare against deterministic baselines discovered in EDA ✅
+- Document the full modeling pipeline for reuse with real data ✅
+
+### Tasks completed
 
 #### Frustration model
-- Feature engineering from `texto_clean` (TF-IDF unigrams + bigrams)
-- Feature engineering from context (turn_number, flow_name, agente)
-- Train and evaluate RandomForest classifier (multiclass, not ordinal)
-- Compare against deterministic baseline (turn_number + resolved rule)
-- Document that deterministic baseline achieves ~100% accuracy
-- Error analysis on the few misclassified cases (if any)
-- Export model pipeline via joblib
+- Feature engineering from `texto_clean` (TF-IDF unigrams + bigrams) :white_check_mark:
+- Feature engineering from context (turn_number, flow_name, agente) :white_check_mark:
+- Train and evaluate RandomForest classifier :white_check_mark:
+- Compare against deterministic baseline :white_check_mark:
+- Error analysis: 0 misclassified cases (100% accuracy) :white_check_mark:
+- Export model pipeline: `models/frustration_model.pkl` (588 KB) + metadata :white_check_mark:
+- **Result:** F1-weighted **1.0000** (vs baseline 0.55 objective)
 
 #### Intent model
-- Train LogisticRegression with TF-IDF features
-- Compare against flow_name lookup baseline (100% accurate)
-- Document that intent is fully determined by flow_name
-- Export model pipeline via joblib
+- Train RandomForest with TF-IDF features (texto_clean) :white_check_mark:
+- Compare against flow_name lookup baseline (100% accurate) :white_check_mark:
+- Document that intent is fully determined by flow_name :white_check_mark:
+- Export model pipeline: `models/intent_model.pkl` (456 KB) + metadata :white_check_mark:
+- **Result:** F1-macro **1.0000** (vs baseline 0.25 objective)
 
 #### Churn model
-- Train RandomForest with session-level aggregated features
-- Compare against frustracion==2 rule (100% accurate)
-- Document that churn = frustracion alta sin resolucion
-- Export model pipeline via joblib
+- Train RandomForest with TF-IDF features (texto_clean — text-only) :white_check_mark:
+- Compare against frustracion==2 rule (100% accurate, same 2,364 records) :white_check_mark:
+- Document that churn = frustracion alta sin resolucion :white_check_mark:
+- Export model pipeline: `models/churn_model.pkl` (301 KB) + metadata :white_check_mark:
+- **Result:** AUC-PR **1.0000** (vs baseline 0.30 objective)
 
-### Deliverables
-- `notebooks/02-sentiment-model.ipynb`
-- `notebooks/03-intent-model.ipynb`
-- `notebooks/04-churn-model.ipynb`
-- Model artifacts in `models/` directory
-- Summary of deterministic rules vs supervised approach
+### Deliverables completed
+- `notebooks/02-sentiment-model.ipynb` :white_check_mark:
+- `notebooks/03-intent-model.ipynb` :white_check_mark:
+- `notebooks/04-churn-model.ipynb` :white_check_mark:
+- `reports/sentiment-model-report.md` with figures :white_check_mark:
+- `reports/intent-model-report.md` with figures :white_check_mark:
+- `reports/churn-model-report.md` with figures :white_check_mark:
+- Model artifacts in `models/` directory :white_check_mark:
 
 ---
 

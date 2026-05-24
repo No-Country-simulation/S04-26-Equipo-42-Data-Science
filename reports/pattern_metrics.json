@@ -1,0 +1,28 @@
+{
+  "total_sessions": 6648,
+  "total_turns": 20001,
+  "avg_turns_per_session": 3.01,
+  "overall_frustration_mean": 0.57,
+  "overall_resolved_rate": 0.215,
+  "overall_churn_rate": 0.118,
+  "sessions_resolved": 4296,
+  "sessions_churn": 2361,
+  "sessions_active": 0,
+  "flow_frustration": {
+    "Acceso y Seguridad": 0.558,
+    "Facturaci\u00f3n y Cobros": 0.583,
+    "Gestion de Cuenta": 0.569,
+    "Soporte T\u00e9cnico y Despacho": 0.569
+  },
+  "intent_churn_rate": {
+    "cambio_plan": 0.118,
+    "error_login": 0.113,
+    "logistica_envio": 0.118,
+    "problema_pago": 0.125
+  },
+  "frustration_distribution": {
+    "0": 0.548,
+    "1": 0.333,
+    "2": 0.118
+  }
+}

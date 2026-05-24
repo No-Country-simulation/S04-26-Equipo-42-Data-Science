@@ -1,9 +1,7 @@
 # ML Charter — ConversaAI: Sentiment & Intent Analysis
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Metodologia:** CRISP-DM  
-**Branch:** `ml/sentiment`  
-**Fecha:** Mayo 2026
 
 ---
 
@@ -45,6 +43,17 @@ ConversaAI procesa mas de 2 millones de mensajes al mes en conversaciones de sop
 | `es_churn_risk`     | Clasificacion binaria    | 0 (88%), 1 (12%)          | Desbalanceado | Balanced classes, AUC-PR             |
 | `resolved`          | Clasificacion binaria    | 0 (78%), 1 (22%)          | Desbalanceado | Outcome feature, no target principal |
 
+### Hallazgos del EDA (posterior)
+
+El analisis exploratorio (`01-eda.ipynb`) revelo que el dataset es **determinista** — los targets se derivan de reglas exactas, no de patrones linguisticos reales:
+
+- `nivel_frustracion` sigue una regla exacta por `turn_number`: turno 1 → 0, turno 2 → 1, turno 3 → 0 o 2 segun `resolved`
+- `es_churn_risk` tiene correlacion del 100% con `nivel_frustracion == 2` (mismos 2,364 registros)
+- `intencion` mapea 1:1 con `flow_name`
+- `texto_clean` tiene longitud uniforme (15-33 caracteres), consistente con datos sinteticos
+
+**Implicacion:** Los modelos supervisados lograran precision perfecta (100%) porque la senal predictiva esta en reglas de contexto, no en el texto. El valor real del proyecto esta en el **pipeline** (validado y transferible) y en el **dashboard** con visualizaciones y patrones agregados.
+
 ---
 
 ## 3. ML Task Definition
@@ -69,38 +78,44 @@ ConversaAI procesa mas de 2 millones de mensajes al mes en conversaciones de sop
 ### Tarea 3: Prediccion de churn / abandono
 
 - **Target:** `es_churn_risk` (0/1)
-- **Input:** Features agregadas por sesion (frustracion promedio, resolved rate, duracion, cantidad de turnos)
+- **Input:** `texto_clean` (TF-IDF) — enfoque texto-solo porque el target es 100% determinista: churn = `nivel_frustracion == 2`
 - **Tipo:** Clasificacion binaria con desbalanceo
 - **Metrica principal:** AUC-PR (preferred para desbalanceo) o F1
-- **Baseline:** Reglas heuristicas (frustracion sostenida + no resuelto)
+- **Baseline:** Regla `frustracion==2` → `churn=1` (100% accuracy)
 
-### Tarea 4: Analisis de patrones (post-modelos)
+### Tarea 4: Analisis de patrones y dashboard (Deployment)
 
 - **Objetivo:** Identificar correlaciones entre frustracion, intencion, y resultado
 - **No es un modelo per se** — es agregacion de los outputs de T1+T2+T3
 - **Output:** Dashboard con metricas agregadas por flujo, intent, agente, periodo
+- **Estado:** Pendiente — se aborda en Sprint 3 del sprint-plan
 
 ---
 
 ## 4. Approach Tecnico
 
-### Pipeline propuesto
+### Pipeline ejecutado
 
 ```
 Business Understanding [OK - docs/conversa-ai.md]
         |
-Data Understanding [OK - data_engineering + este charter]
+Data Understanding [OK - EDA + data-dictionary]
         |
 Data Preparation [OK - DE completo]
         |
-Modeling [Sprint actual]
-  ├── T1: Frustracion (supervisado)
-  ├── T2: Intencion (supervisado)
-  └── T3: Churn (feature engineering + modelo tabular)
+Modeling [COMPLETADO - Sprint 2]
+  ├── T1: Frustracion (RF + TF-IDF + contexto) -> F1-weighted 1.0000
+  ├── T2: Intencion (RF + TF-IDF texto-solo)   -> F1-macro 1.0000
+  └── T3: Churn (RF + TF-IDF texto-solo)       -> AUC-PR 1.0000
         |
-Evaluation [Metricas sobre test hold-out]
+Evaluation [COMPLETADO - dentro de cada notebook]
+  ├── Split estratificado 70/15/15
+  ├── 5-fold CV + test hold-out
+  └── Matriz de confusion + reporte por clase
         |
-Deployment [Dashboard + reporte]
+Deployment [EN CURSO - Sprint 3]
+  ├── T4: Analisis de patrones (05-pattern-analysis)
+  └── Dashboard Streamlit + reporte insights
 ```
 
 ### Stack tecnologico
@@ -128,11 +143,13 @@ Al revisar el dataset, descubrimos que si existen labels para frustracion, inten
 
 ### Por tarea
 
-| Tarea       | Metrica principal | Baseline heuristico     | Objetivo minimo |
-| ----------- | ----------------- | ----------------------- | --------------- |
-| Frustracion | F1-weighted       | 0.55 (keyword rules)    | >0.70           |
-| Intencion   | F1-macro          | 0.25 (random)           | >0.85           |
-| Churn       | AUC-PR            | 0.30 (simple heuristic) | >0.50           |
+| Tarea       | Metrica principal | Baseline heuristico     | Objetivo minimo | Resultado real |
+| ----------- | ----------------- | ----------------------- | --------------- | -------------- |
+| Frustracion | F1-weighted       | 0.55 (keyword rules)    | >0.70           | **1.0000**     |
+| Intencion   | F1-macro          | 0.25 (random)           | >0.85           | **1.0000**     |
+| Churn       | AUC-PR            | 0.30 (simple heuristic) | >0.50           | **1.0000**     |
+
+**Nota:** Todos los resultados son perfectos porque el dataset es deterministico (ver Hallazgos del EDA en Sec. 2). Los modelos son validos como ejercicio metodologico y el pipeline es 100% transferible a datos reales. Con datos reales, esperariamos metricas significativamente menores y los baselines heuristicos serian la referencia genuina.
 
 ### Estrategia de validacion
 
@@ -167,21 +184,25 @@ Al revisar el dataset, descubrimos que si existen labels para frustracion, inten
 
 ## 8. Roadmap CRISP-DM
 
-| Fase                   | Estado          | Entregable                                      |
-| ---------------------- | --------------- | ----------------------------------------------- |
-| Business Understanding | Completado      | `docs/conversa-ai.md`, `docs/ml-charter.md`     |
-| Data Understanding     | Completado      | `docs/data-dictionary.md`, EDA notebook         |
-| Data Preparation       | Completado (DE) | Dataset preprocesado                            |
-| Modeling               | Pendiente       | Notebooks: 02-sentiment, 03-intent, 04-patterns |
-| Evaluation             | Pendiente       | Reporte de metricas, matriz de confusion        |
-| Deployment             | Pendiente       | Dashboard Streamlit, reporte ejecutivo          |
+| Fase                   | Estado          | Entregable                                                 |
+| ---------------------- | --------------- | ---------------------------------------------------------- |
+| Business Understanding | Completado   | `docs/conversa-ai.md`, `docs/ml-charter.md`                |
+| Data Understanding     | Completado   | `docs/data-dictionary.md`, `01-eda.ipynb`, `reports/eda-report.md` |
+| Data Preparation       | Completado   | Dataset preprocesado (por DE)                              |
+| Modeling               | Completado   | `02-sentiment-model`, `03-intent-model`, `04-churn-model`  |
+| Evaluation             | Completado   | Reportes en cada notebook + `reports/*-model-report.md`    |
+| Deployment             | En curso     | `05-pattern-analysis`, dashboard Streamlit, reporte insights |
 
 ---
 
 ## 9. Entregables
 
-1. **Modelos:** Pipeline de clasificacion de frustracion, intencion, y churn
-2. **Dashboard:** Visualizaciones de insights por flujo, intent, frustracion
-3. **Reporte:** Recomendaciones accionables para el equipo de producto
-4. **Notebooks:** Reproducibles con analisis paso a paso
-5. **Codigo:** Modulos en `src/sentiment_analysis/` reutilizables
+| # | Entregable | Estado | Detalle |
+|---|------------|--------|---------|
+| 1 | **Modelos** | Completado | 3 pipelines en `models/`: frustracion (RF), intencion (RF), churn (RF) + metadatos |
+| 2 | **Notebooks** | Completado | `01-eda`, `02-sentiment-model`, `03-intent-model`, `04-churn-model` |
+| 3 | **Reportes por modelo** | Completado | `reports/eda-report.md`, `sentiment-model-report.md`, `intent-model-report.md`, `churn-model-report.md` |
+| 4 | **Analisis de patrones** | Pendiente | Notebook `05-pattern-analysis` — cruce de los 3 targets por flujo, agente, tiempo |
+| 5 | **Dashboard** | Pendiente | `dashboard/app.py` con Streamlit + plotly interactivo |
+| 6 | **Reporte ejecutivo** | Pendiente | `reports/insights-summary.md` con recomendaciones accionables |
+| 7 | **Codigo reutilizable** | Futuro | Modulos en `src/sentiment_analysis/` (V2 del tech-stack-roadmap) |

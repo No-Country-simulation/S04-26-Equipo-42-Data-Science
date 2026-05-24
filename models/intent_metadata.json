@@ -1,0 +1,20 @@
+{
+  "model": "RandomForest + TF-IDF",
+  "target": "intencion",
+  "classes": [
+    "cambio_plan",
+    "error_login",
+    "logistica_envio",
+    "problema_pago"
+  ],
+  "features": [
+    "texto_clean"
+  ],
+  "baseline_accuracy": 1.0,
+  "rf_accuracy": 1.0,
+  "baseline_f1_macro": 1.0,
+  "rf_f1_macro": 1.0,
+  "rf_f1_weighted": 1.0,
+  "date": "Mayo 2026",
+  "note": "Baseline deterministico usa flow_name -> intencion (100%). Modelo usa solo texto_clean."
+}
