@@ -33,6 +33,7 @@ def load_data():
     # Construir ruta relativa desde dashboard/
     base_dir = Path(__file__).parent.parent
     file_path = base_dir / "data" / "processed" / "data_preprocessed.csv"
+    print(f"Cargando datos desde: {file_path}")
     
     df = pd.read_csv(file_path)
     
@@ -48,7 +49,7 @@ try:
     st.success(f"✅ Datos cargados: {len(df):,} mensajes, {df['session_id'].nunique():,} sesiones")
 except Exception as e:
     st.error(f"❌ Error al cargar datos: {e}")
-    st.info("Verifica que el archivo exista en: data/processed/preprocessed.csv")
+    st.info("Verifica que el archivo exista en: data/processed/data_preprocessed.csv")
     st.stop()
 
 # ==================== FILTROS EN SIDEBAR ====================
@@ -111,7 +112,7 @@ granularidad = st.sidebar.selectbox(
 st.sidebar.markdown("---")
 st.sidebar.info(
     "📊 **Dashboard ConversaAI**\n\n"
-    "Desarrollado para el hackathon.\n\n"
+    "Desarrollado para NoCountry.\n\n"
     "Basado en datos sintéticos. Pipeline listo para datos reales."
 )
 
