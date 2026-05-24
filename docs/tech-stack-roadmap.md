@@ -24,16 +24,16 @@ Cada fase se habilita cuando la anterior demuestra que el proyecto lo merece.
 
 | Categoria | Herramienta | Instalado | Justificacion |
 |-----------|-------------|-----------|---------------|
-| **Package manager** | uv | Si | Ya decidido, no se negocia |
-| **Data manipulation** | pandas, numpy | Pendiente | Estandar de industria |
-| **Feature extraction (texto)** | scikit-learn (TfidfVectorizer) | Pendiente | Rapido, interpretable, suficiente para baseline |
-| **Modelos tabulares** | scikit-learn (LogisticRegression, RandomForest) | Pendiente | Cubren del baseline al modelo competitivo |
-| **Datos desbalanceados** | `class_weight='balanced'` (nativo sklearn) | No requiere instalacion | Sin dependencias extra |
-| **Evaluacion** | scikit-learn metrics, confusion matrix, classification_report | Pendiente | Todo lo necesario para reportar resultados |
-| **Visualizacion EDA** | matplotlib + seaborn | Pendiente | Estandar para analisis exploratorio |
-| **Dashboard** | Streamlit + plotly | Pendiente | Rapido de prototipar, equipo de producto lo usa sin ayuda |
-| **Serializacion modelos** | joblib | Pendiente | Estandar para scikit-learn |
-| **Experiment tracking** | Tabla CSV en `reports/experiments.csv` | Ninguna | Suficiente para ~10-15 experimentos. Registro manual pero estructurado |
+| **Package manager** | uv | ✅ | Ya decidido, no se negocia |
+| **Data manipulation** | pandas, numpy | ✅ | Estandar de industria |
+| **Feature extraction (texto)** | scikit-learn (TfidfVectorizer) | ✅ | Rapido, interpretable, suficiente para baseline |
+| **Modelos tabulares** | scikit-learn (LogisticRegression, RandomForest) | ✅ | Cubren del baseline al modelo competitivo |
+| **Datos desbalanceados** | `class_weight='balanced'` (nativo sklearn) | ✅ | Sin dependencias extra |
+| **Evaluacion** | scikit-learn metrics, confusion matrix, classification_report | ✅ | Todo lo necesario para reportar resultados |
+| **Visualizacion EDA** | matplotlib + seaborn | ✅ | Estandar para analisis exploratorio |
+| **Dashboard** | Streamlit + plotly | ✅ (pendiente codigo) | Rapido de prototipar, equipo de producto lo usa sin ayuda |
+| **Serializacion modelos** | joblib | ✅ | Estandar para scikit-learn |
+| **Experiment tracking** | Tabla CSV en `reports/experiments.csv` | Pendiente | Suficiente para ~10-15 experimentos. Registro manual pero estructurado |
 | **Testing** | Ninguno (notebooks first) | — | No se testean notebooks. Se evalua en V2 si se modulariza |
 
 ### Comandos de instalacion V1
@@ -44,10 +44,11 @@ uv add pandas numpy scikit-learn matplotlib seaborn plotly streamlit joblib
 
 ### Entregables V1
 
-- Notebooks: `01-eda.ipynb`, `02-sentiment-model.ipynb`, `03-intent-model.ipynb`, `04-churn-model.ipynb`
-- Dashboard: `dashboard/` con Streamlit
-- Reporte de experimentos: `reports/experiments.csv`
-- Modelos serializados: `models/` con pipelines en joblib
+- Notebooks: `01-eda.ipynb`, `02-sentiment-model.ipynb`, `03-intent-model.ipynb`, `04-churn-model.ipynb` ✅
+- Dashboard: `dashboard/` con Streamlit 🔄 (pendiente de implementar)
+- Reporte de experimentos: `reports/experiments.csv` ⬜ (pendiente)
+- Modelos serializados: `models/` con pipelines en joblib ✅
+- Reportes: `reports/*-model-report.md` con figuras y analisis ✅
 
 ---
 
