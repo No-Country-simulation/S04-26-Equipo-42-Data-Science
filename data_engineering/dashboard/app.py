@@ -334,6 +334,28 @@ if not df_filtered.empty:
                 labels={'label': 'Nivel de frustración', 'count': 'Cantidad'})
     fig.update_traces(texttemplate='%{text}%', textposition='outside')
     st.plotly_chart(fig, use_container_width=True)
+# ==================== BOTÓN DE DESCARGA DE VIDEO DEMO ====================
+st.markdown("---")
+st.subheader("📹 Demo del Dashboard")
+
+# Ruta al video (ajústala según dónde guardes el archivo)
+video_path = "videos/dashboard_demo.mp4"
+
+# Verificar si el video existe
+import os
+if os.path.exists(video_path):
+    with open(video_path, "rb") as f:
+        video_bytes = f.read()
+    
+    st.download_button(
+        label="📥 Descargar video demo (MP4)",
+        data=video_bytes,
+        file_name="conversaai_dashboard_demo.mp4",
+        mime="video/mp4"
+    )
+    st.caption("Video de demostración del dashboard - Mayo 2026")
+else:
+    st.info("📹 El video demo estará disponible próximamente.")
 
 # ==================== PIE DE PÁGINA ====================
 st.markdown("---")
