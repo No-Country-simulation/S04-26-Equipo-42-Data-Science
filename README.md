@@ -1,161 +1,129 @@
-# ConversaAI — Sentiment & Intent Analysis
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/scikit--learn-1.8-orange?logo=scikit-learn&logoColor=white" alt="scikit-learn">
+  <img src="https://img.shields.io/badge/Streamlit-1.57-red?logo=streamlit&logoColor=white" alt="Streamlit">
+  <img src="https://img.shields.io/badge/uv-package%20manager-green?logo=uv" alt="uv">
+  <img src="https://img.shields.io/badge/CRISP--DM-complete-blue" alt="CRISP-DM">
+</p>
 
-[![Python 3.12](https://img.shields.io/badge/python-3.12-blue?logo=python)](https://www.python.org/)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.8-orange?logo=scikit-learn)](https://scikit-learn.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.57-red?logo=streamlit)](https://streamlit.io/)
-[![uv](https://img.shields.io/badge/uv-package%20manager-green)](https://docs.astral.sh/uv/)
-[![CRISP--DM](https://img.shields.io/badge/methodology-CRISP--DM-lightgrey)](https://en.wikipedia.org/wiki/Cross-industry_standard_process_for_data_mining)
+<h1 align="center">ConversaAI</h1>
+<p align="center"><em>Sentiment & Intent Analysis for Customer Support Conversations</em></p>
 
-ML-powered analysis of customer support conversations for **ConversaAI**.
-The project follows **CRISP-DM** methodology to classify user frustration,
-detect intent, identify churn patterns, and surface insights through an
-interactive dashboard.
+<p align="center">
+  Three machine learning models analyze frustration, intent, and churn from
+  support conversations. An interactive dashboard surfaces actionable insights
+  for product teams.
+</p>
 
----
-
-## Status
-
-All four supervised models are built, evaluated, and exported. The interactive
-dashboard is live and ready for stakeholder review.
-
-| Phase | Notebook | Status |
-|-------|----------|--------|
-| Business Understanding | — | ✅ Charter, scope, sprint plan |
-| Data Understanding | [`01-eda.ipynb`](notebooks/01-eda.ipynb) | ✅ |
-| Data Preparation | (handled upstream by DE team) | ✅ |
-| Modeling — Frustration | [`02-sentiment-model.ipynb`](notebooks/02-sentiment-model.ipynb) | ✅ |
-| Modeling — Intent | [`03-intent-model.ipynb`](notebooks/03-intent-model.ipynb) | ✅ |
-| Modeling — Churn | [`04-churn-model.ipynb`](notebooks/04-churn-model.ipynb) | ✅ |
-| Evaluation | [`05-pattern-analysis.ipynb`](notebooks/05-pattern-analysis.ipynb) | ✅ |
-| Deployment | Dashboard | ✅ |
+<br>
 
 ---
 
-## Quick start
+## Demo
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=5pAGcT9N79k">
+    <img src="https://img.shields.io/badge/▶%20Watch%20the%20demo-red?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch the demo">
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://conversa-ai.streamlit.app/">
+    <img src="https://img.shields.io/badge/Live%20Dashboard-Streamlit-red?style=for-the-badge&logo=streamlit&logoColor=white" alt="Live Dashboard">
+  </a>
+</p>
+
+---
+
+## Overview
+
+ConversaAI applies supervised learning to customer support conversations,
+following the CRISP-DM methodology end-to-end. The project delivers:
+
+- **Three trained models** for frustration level, intent detection, and churn
+  risk, exported as reusable pipelines.
+- **An interactive dashboard** with six views — overview, flows, agents, trends,
+  correlations, and data export — all connected through synchronized filters.
+- **Six analytical reports** documenting every phase: EDA, model evaluations,
+  cross-target pattern analysis, and an executive summary.
+
+The pipeline was validated on a synthetic dataset (20,001 conversations) and is
+ready to ingest real data with minimal changes.
+
+---
+
+## Quick Start
 
 ```bash
-# Install dependencies
-uv sync
-
-# Launch notebooks
-uv run jupyter lab
-
-# Launch dashboard
-uv run streamlit run dashboard/app.py
+uv sync                          # install dependencies
+uv run streamlit run dashboard/app.py  # launch dashboard
+uv run jupyter lab               # explore notebooks
 ```
 
-> Requires Python 3.12+. Package manager: [uv](https://docs.astral.sh/uv/).
-
----
-
-## Project structure
-
-```
-├── data/                          # Preprocessed dataset (20K conversations)
-├── data_engineering/              # DE sub-project — do not modify
-├── dashboard/                     # Streamlit application (modular)
-│   ├── app.py                     # Entry point (orchestrator)
-│   ├── config.py                  # Constants, colors, paths
-│   ├── data.py                    # Cached data loading
-│   ├── sidebar.py                 # Filter controls
-│   ├── overview.py                # Tab: high-level KPIs
-│   ├── flows_intents.py           # Tab: per-flow / per-intent breakdown
-│   ├── agents.py                  # Tab: agent performance
-│   ├── trends.py                  # Tab: temporal trends
-│   ├── correlation.py             # Tab: correlation matrix
-│   └── export.py                  # Tab: CSV / JSON / markdown export
-├── docs/                          # Project documentation
-│   ├── README.md                  # Documentation index
-│   ├── background/                # Initial design docs (reference)
-│   ├── data/                      # Dataset documentation
-│   │   └── data-dictionary.md     # Column and target definitions
-│   ├── models/                    # ML charter, sprint plan, roadmap
-│   │   ├── ml-charter.md          # Scope, metrics, risks
-│   │   ├── sprint-plan.md         # Sprint-based work plan
-│   │   └── tech-stack-roadmap.md  # V1–V3 evolution
-│   └── dashboard/                 # Dashboard documentation
-├── models/                        # Exported pipelines (.pkl + .json)
-│   ├── frustration_model.pkl
-│   ├── intent_model.pkl
-│   └── churn_model.pkl
-├── notebooks/                     # CRISP-DM notebooks (numbered)
-│   ├── 01-eda.ipynb
-│   ├── 02-sentiment-model.ipynb
-│   ├── 03-intent-model.ipynb
-│   ├── 04-churn-model.ipynb
-│   └── 05-pattern-analysis.ipynb
-├── reports/                       # Reports with inline figures
-│   ├── eda-report.md
-│   ├── sentiment-model-report.md
-│   ├── intent-model-report.md
-│   ├── churn-model-report.md
-│   └── pattern-analysis-report.md
-├── src/                           # Reusable modules (future)
-│   └── sentiment_analysis/
-├── pyproject.toml                 # Project metadata + dependencies
-└── README.md
-```
+> Requires Python 3.12 and [uv](https://docs.astral.sh/uv/).
 
 ---
 
 ## Models
 
-All models were trained on **synthetic/deterministic data** (20,001 rows, 0 nulls).
-Performance reflects dataset construction rules, not real-world behavior.
+| Target | Approach | Key Metric |
+|--------|----------|------------|
+| Frustration (`nivel_frustracion`) | RandomForest + TF-IDF + context | F1-weighted: 1.00 |
+| Intent (`intencion`) | RandomForest + TF-IDF (text only) | F1-macro: 1.00 |
+| Churn (`es_churn_risk`) | RandomForest + TF-IDF (text only) | AUC-PR: 1.00 |
 
-| Target | Type | Classes | Balanced | Key Metric | Notes |
-|--------|------|---------|----------|------------|-------|
-| **Frustration** (`nivel_frustracion`) | Ordinal classification | 3 (0/1/2) | ❌ Imbalanced | 100% accuracy | Perfect separation by `turn_number` |
-| **Intent** (`intencion`) | Multiclass | 4 | ✅ Balanced | 100% accuracy | 1:1 mapping with `flow_name` |
-| **Churn** (`es_churn_risk`) | Binary | 2 | ❌ 12% pos | 1.00 PR-AUC | 100% correlated with `nivel_frustracion==2` |
-| **Resolution** (`resolved`) | Binary | 2 | ❌ 22% pos | — | Exported for dashboard use |
-
-> Model reports with detailed evaluation figures are in [`reports/`](reports/).
+> **Important:** These metrics reflect the deterministic nature of the synthetic
+> dataset. Real data will introduce noise and require retraining.
 
 ---
 
 ## Dashboard
 
-The interactive dashboard provides six views into the data:
+Six interconnected tabs, all respecting sidebar filters:
 
-| Tab | What it shows |
-|-----|---------------|
-| 📊 **Overview** | KPIs (sessions, churn, resolution, frustration), outcome distribution, global metrics |
-| 🔄 **Flows & Intents** | Per-flow comparison, frustration by flow, churn/resolution by intent |
-| 👤 **Agents** | Agent-level aggregation, scatter plot, churn/resolution leaderboards, search |
-| 📈 **Temporal Trends** | Monthly frustration, churn, and resolution trends; per-flow time series |
-| 🔗 **Correlations** | Cross-correlation heatmap, strip plots for key variable pairs |
-| 📥 **Export** | Download filtered CSV, metrics JSON, or executive summary markdown |
-
-All tabs respect sidebar filters (flow, intent, frustration range, date range).
-
-```bash
-uv run streamlit run dashboard/app.py
-```
+| Tab | Purpose |
+|-----|---------|
+| Overview | Global KPIs and outcome distribution |
+| Flows & Intents | Per-flow frustration and per-intent resolution |
+| Agents | Agent-level aggregation with search |
+| Trends | Monthly evolution of all key metrics |
+| Correlations | Cross-variable heatmap and strip plots |
+| Export | Download filtered data as CSV, JSON, or markdown |
 
 ---
 
-## Stack
+## Reports
+
+| Report | Content |
+|--------|---------|
+| [`EDA Report`](reports/eda-report.md) | Data exploration and deterministic patterns |
+| [`Frustration Model`](reports/sentiment-model-report.md) | Sentiment classification methodology |
+| [`Intent Model`](reports/intent-model-report.md) | Intent detection methodology |
+| [`Churn Model`](reports/churn-model-report.md) | Churn prediction methodology |
+| [`Pattern Analysis`](reports/pattern-analysis-report.md) | Cross-target session-level insights |
+| [`Insights Summary`](reports/insights-summary.md) | Executive summary and recommendations |
+
+---
+
+## Tech Stack
 
 | Category | Tools |
 |----------|-------|
-| **Language** | Python 3.12 |
-| **ML / Data** | scikit-learn 1.8, pandas 3.0, numpy 2.4 |
-| **Visualization** | matplotlib, seaborn, plotly |
-| **Dashboard** | Streamlit 1.57, Plotly |
-| **Notebooks** | Jupyter Lab |
-| **Package mgmt** | [uv](https://docs.astral.sh/uv/) |
-| **Methodology** | CRISP-DM |
+| Language | Python 3.12 |
+| ML & Data | scikit-learn 1.8, pandas 3.0, numpy 2.4 |
+| Visualization | matplotlib, seaborn, plotly |
+| Dashboard | Streamlit 1.57 |
+| Package Manager | uv |
+| Methodology | CRISP-DM |
 
 ---
 
 ## Documentation
 
-- [`docs/README.md`](docs/README.md) — Full documentation index with descriptions
-- [`docs/data/data-dictionary.md`](docs/data/data-dictionary.md) — All 15 columns, types, and targets
-- [`docs/models/ml-charter.md`](docs/models/ml-charter.md) — Project scope, success criteria, risks, roadmap
-- [`docs/models/sprint-plan.md`](docs/models/sprint-plan.md) — Sprint-based work plan and deliverables
-- [`docs/models/tech-stack-roadmap.md`](docs/models/tech-stack-roadmap.md) — V1 to V3 architecture evolution
+Full documentation index at [`docs/README.md`](docs/README.md).
+
+- [Data Dictionary](docs/data/data-dictionary.md) — Column definitions and targets
+- [ML Charter](docs/models/ml-charter.md) — Scope, risks, and success criteria
+- [Sprint Plan](docs/models/sprint-plan.md) — Work plan and deliverables
+- [Tech Roadmap](docs/models/tech-stack-roadmap.md) — V1 to V3 architecture evolution
 
 ---
 
