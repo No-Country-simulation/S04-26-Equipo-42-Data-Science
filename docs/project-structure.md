@@ -26,34 +26,64 @@ organizado bajo metodologia CRISP-DM.
 │   └── reports/quality/               #   Reportes de calidad de datos
 │
 ├── docs/                              # Documentacion del proyecto
-│   ├── conversa-ai.md                 #   Guideline del proyecto
-│   ├── data-dictionary.md             #   Diccionario de datos (15 columnas)
-│   ├── ml-charter.md                  #   Charter del proyecto ML (CRISP-DM)
+│   ├── background/                    #   Documentacion inicial (referencia historica)
+│   │   ├── conversa-ai.md             #     Guideline original del proyecto
+│   │   ├── corpus-v1.md               #     Especificacion dataset V1
+│   │   ├── corpus-v2.md               #     Especificacion dataset V2
+│   │   ├── caso-de-estudio.md         #     Caso de estudio original
+│   │   └── planificacion-actividades.md #   Propuesta original de actividades
+│   ├── data/                          #   Documentacion del dataset
+│   │   └── data-dictionary.md         #     Diccionario de datos (15 columnas)
+│   ├── models/                        #   Documentacion de modelos y planificacion
+│   │   ├── ml-charter.md              #     Charter del proyecto ML (CRISP-DM)
+│   │   ├── sprint-plan.md             #     Plan de trabajo por sprints
+│   │   └── tech-stack-roadmap.md      #     Roadmap tecnologico V1-V3
+│   ├── dashboard/                     #   Documentacion del dashboard
+│   │   └── Conversa-ai-app.md         #     Documentacion tecnica (DE)
 │   ├── project-structure.md           #   Este archivo
-│   ├── sprint-plan.md                 #   Plan de trabajo por sprints
-│   ├── tech-stack-roadmap.md          #   Roadmap tecnologico V1-V3
-│   └── Planificacion de Actividades.md#   Propuesta original (referencia)
+│   └── README.md                      #   Indice de documentacion
+│
+├── dashboard/                         # Aplicacion Streamlit (modular)
+│   ├── app.py                         #   Entry point (orquestador)
+│   ├── config.py                      #   Constantes, colores, rutas
+│   ├── data.py                        #   Carga de datos con cache
+│   ├── sidebar.py                     #   Filtros interactivos
+│   ├── overview.py                    #   Tab: KPIs globales
+│   ├── flows_intents.py               #   Tab: desglose por flujo/intencion
+│   ├── agents.py                      #   Tab: rendimiento por agente
+│   ├── trends.py                      #   Tab: tendencias temporales
+│   ├── correlation.py                 #   Tab: matriz de correlacion
+│   └── export.py                      #   Tab: exportacion CSV/JSON
 │
 ├── models/                            # Pipelines exportados
 │   ├── frustration_model.pkl          #   Modelo de frustracion (joblib)
-│   └── frustration_metadata.json      #   Metadatos del modelo
+│   ├── frustration_metadata.json      #   Metadatos del modelo
+│   ├── intent_model.pkl               #   Modelo de intencion (joblib)
+│   ├── intent_metadata.json           #   Metadatos del modelo
+│   ├── churn_model.pkl                #   Modelo de churn (joblib)
+│   └── churn_metadata.json            #   Metadatos del modelo
 │
 ├── notebooks/                         # Notebooks numerados por orden CRISP-DM
 │   ├── 01-eda.ipynb                   #   Analisis exploratorio de datos
 │   ├── 02-sentiment-model.ipynb       #   Clasificacion de frustracion
-│   ├── 03-intent-model.ipynb          #   Deteccion de intencion (pendiente)
-│   ├── 04-churn-model.ipynb           #   Prediccion de churn (pendiente)
-│   └── 05-pattern-analysis.ipynb      #   Analisis cruzado de patrones (pendiente)
+│   ├── 03-intent-model.ipynb          #   Deteccion de intencion
+│   ├── 04-churn-model.ipynb           #   Prediccion de churn
+│   └── 05-pattern-analysis.ipynb      #   Analisis cruzado de patrones
 │
 ├── reports/                           # Reportes con hallazgos
 │   ├── eda-report.md                  #   Hallazgos del EDA
 │   ├── sentiment-model-report.md      #   Evaluacion del modelo de frustracion
+│   ├── intent-model-report.md         #   Evaluacion del modelo de intencion
+│   ├── churn-model-report.md          #   Evaluacion del modelo de churn
+│   ├── pattern-analysis-report.md     #   Analisis cruzado de patrones
+│   ├── session_aggregated.csv         #   Datos agregados a nivel sesion
+│   ├── pattern_metrics.json           #   Metricas clave en formato JSON
 │   └── figures/                       #   Graficos y visualizaciones (PNG)
 │       ├── baseline_deterministico.png
 │       ├── correlation_matrix.png
 │       ├── frustracion_distribution.png
 │       ├── rf_feature_importance.png
-│       └── ... (22 figuras en total)
+│       └── ... (22+ figuras en total)
 │
 ├── src/
 │   └── sentiment_analysis/            # Modulos reutilizables
@@ -78,9 +108,9 @@ El proyecto sigue **CRISP-DM** (Cross-Industry Standard Process for Data Mining)
 | Business Understanding | Completado |
 | Data Understanding | Completado |
 | Data Preparation | Completado (Data Engineering) |
-| Modeling | Parcial (frustracion listo, intent/churn pendientes) |
-| Evaluation | Pendiente |
-| Deployment | Pendiente (dashboard + reporte final) |
+| Modeling | Completado (frustracion, intencion, churn) |
+| Evaluation | Completado |
+| Deployment | En curso (dashboard operativo, falta reporte ejecutivo) |
 
 ### Ramas
 

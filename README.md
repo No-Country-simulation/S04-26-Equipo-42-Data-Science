@@ -65,10 +65,15 @@ uv run streamlit run dashboard/app.py
 │   ├── correlation.py             # Tab: correlation matrix
 │   └── export.py                  # Tab: CSV / JSON / markdown export
 ├── docs/                          # Project documentation
-│   ├── data-dictionary.md         # Column and target definitions
-│   ├── ml-charter.md              # Scope, metrics, risks
-│   ├── sprint-plan.md             # Sprint-based work plan
-│   └── tech-stack-roadmap.md      # V1–V3 evolution
+│   ├── README.md                  # Documentation index
+│   ├── background/                # Initial design docs (reference)
+│   ├── data/                      # Dataset documentation
+│   │   └── data-dictionary.md     # Column and target definitions
+│   ├── models/                    # ML charter, sprint plan, roadmap
+│   │   ├── ml-charter.md          # Scope, metrics, risks
+│   │   ├── sprint-plan.md         # Sprint-based work plan
+│   │   └── tech-stack-roadmap.md  # V1–V3 evolution
+│   └── dashboard/                 # Dashboard documentation
 ├── models/                        # Exported pipelines (.pkl + .json)
 │   ├── frustration_model.pkl
 │   ├── intent_model.pkl
@@ -146,10 +151,11 @@ uv run streamlit run dashboard/app.py
 
 ## Documentation
 
-- [`docs/data-dictionary.md`](docs/data-dictionary.md) — All 15 columns, types, and targets
-- [`docs/ml-charter.md`](docs/ml-charter.md) — Project scope, success criteria, risks, roadmap
-- [`docs/sprint-plan.md`](docs/sprint-plan.md) — Sprint-based work plan and deliverables
-- [`docs/tech-stack-roadmap.md`](docs/tech-stack-roadmap.md) — V1 to V3 architecture evolution
+- [`docs/README.md`](docs/README.md) — Full documentation index with descriptions
+- [`docs/data/data-dictionary.md`](docs/data/data-dictionary.md) — All 15 columns, types, and targets
+- [`docs/models/ml-charter.md`](docs/models/ml-charter.md) — Project scope, success criteria, risks, roadmap
+- [`docs/models/sprint-plan.md`](docs/models/sprint-plan.md) — Sprint-based work plan and deliverables
+- [`docs/models/tech-stack-roadmap.md`](docs/models/tech-stack-roadmap.md) — V1 to V3 architecture evolution
 
 ---
 
