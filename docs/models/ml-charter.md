@@ -191,7 +191,7 @@ Al revisar el dataset, descubrimos que si existen labels para frustracion, inten
 | Data Preparation       | Completado   | Dataset preprocesado (por DE)                              |
 | Modeling               | Completado   | `02-sentiment-model`, `03-intent-model`, `04-churn-model`  |
 | Evaluation             | Completado   | Reportes en cada notebook + `reports/*-model-report.md`    |
-| Deployment             | En curso     | `05-pattern-analysis`, dashboard Streamlit, reporte insights |
+| Deployment             | Completado   | `05-pattern-analysis`, dashboard Streamlit, `reports/insights-summary.md` |
 
 ---
 
@@ -202,7 +202,7 @@ Al revisar el dataset, descubrimos que si existen labels para frustracion, inten
 | 1 | **Modelos** | Completado | 3 pipelines en `models/`: frustracion (RF), intencion (RF), churn (RF) + metadatos |
 | 2 | **Notebooks** | Completado | `01-eda`, `02-sentiment-model`, `03-intent-model`, `04-churn-model` |
 | 3 | **Reportes por modelo** | Completado | `reports/eda-report.md`, `sentiment-model-report.md`, `intent-model-report.md`, `churn-model-report.md` |
-| 4 | **Analisis de patrones** | Pendiente | Notebook `05-pattern-analysis` — cruce de los 3 targets por flujo, agente, tiempo |
-| 5 | **Dashboard** | Pendiente | `dashboard/app.py` con Streamlit + plotly interactivo |
-| 6 | **Reporte ejecutivo** | Pendiente | `reports/insights-summary.md` con recomendaciones accionables |
+| 4 | **Analisis de patrones** | Completado | Notebook `05-pattern-analysis` — cruce de los 3 targets por flujo, agente, tiempo |
+| 5 | **Dashboard** | Completado | `dashboard/app.py` con Streamlit + plotly interactivo (modular, 6 pestanas) |
+| 6 | **Reporte** | Completado | `reports/insights-summary.md` con recomendaciones accionables |
 | 7 | **Codigo reutilizable** | Futuro | Modulos en `src/sentiment_analysis/` (V2 del tech-stack-roadmap) |
