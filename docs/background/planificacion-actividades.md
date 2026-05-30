@@ -1,3 +1,5 @@
+> 📌 **Documentación inicial** — Este documento refleja la propuesta original del proyecto y puede no coincidir con la implementación final. Consultá `docs/models/sprint-plan.md` para el plan de trabajo vigente.
+
 ## **PLANIFICACIÓN DE ACTIVIDADES**
 
 ##  Estrategia General (2 semanas)

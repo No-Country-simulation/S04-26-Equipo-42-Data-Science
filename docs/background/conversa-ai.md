@@ -1,3 +1,5 @@
+> 📌 **Documentación inicial** — Este documento refleja el diseño o propuesta original del proyecto y puede no coincidir con la implementación final. Consultá los documentos en `docs/data/`, `docs/models/` y `dashboard/` para la documentación vigente.
+
 # Problema
 
 Build a sentiment and intent analysis system on the corpus of support conversations to identify when users become frustrated, which intentions are not being resolved, and what patterns predict escalation or abandonment.
