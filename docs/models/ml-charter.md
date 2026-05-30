@@ -97,7 +97,7 @@ El analisis exploratorio (`01-eda.ipynb`) revelo que el dataset es **determinist
 ### Pipeline ejecutado
 
 ```
-Business Understanding [OK - docs/conversa-ai.md]
+Business Understanding [OK - docs/background/conversa-ai.md]
         |
 Data Understanding [OK - EDA + data-dictionary]
         |
@@ -186,8 +186,8 @@ Al revisar el dataset, descubrimos que si existen labels para frustracion, inten
 
 | Fase                   | Estado          | Entregable                                                 |
 | ---------------------- | --------------- | ---------------------------------------------------------- |
-| Business Understanding | Completado   | `docs/conversa-ai.md`, `docs/ml-charter.md`                |
-| Data Understanding     | Completado   | `docs/data-dictionary.md`, `01-eda.ipynb`, `reports/eda-report.md` |
+| Business Understanding | Completado   | `docs/background/conversa-ai.md`, `docs/models/ml-charter.md`                |
+| Data Understanding     | Completado   | `docs/data/data-dictionary.md`, `01-eda.ipynb`, `reports/eda-report.md` |
 | Data Preparation       | Completado   | Dataset preprocesado (por DE)                              |
 | Modeling               | Completado   | `02-sentiment-model`, `03-intent-model`, `04-churn-model`  |
 | Evaluation             | Completado   | Reportes en cada notebook + `reports/*-model-report.md`    |

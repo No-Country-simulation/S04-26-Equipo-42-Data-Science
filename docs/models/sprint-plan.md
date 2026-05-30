@@ -14,7 +14,7 @@ El analisis exploratorio (notebook 01-eda) revelo que el dataset presenta patron
 - `intencion` mapea 1:1 con `flow_name`
 - La longitud del texto es uniforme (15-33 caracteres), sugerente de datos sinteticos
 
-Esto es consistente con la documentacion existente (`docs/data-dictionary.md`) que indica que el dataset es sintetico.
+Esto es consistente con la documentacion existente (`docs/data/data-dictionary.md`) que indica que el dataset es sintetico.
 
 **Implicacion:** Las metricas de clasificacion supervisada seran artificialmente altas. El valor del proyecto reside en el pipeline de procesamiento, las visualizaciones y la arquitectura, que son 100% transferibles a datos reales. Los modelos supervisados se incluyen como ejercicio metodologico y para demostrar el flujo completo de CRISP-DM.
 
