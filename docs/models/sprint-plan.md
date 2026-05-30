@@ -87,40 +87,37 @@ Esto es consistente con la documentacion existente (`docs/data/data-dictionary.m
 
 ## Sprint 3: Pattern Analysis and Dashboard
 
-### Objectives
-- Aggregate outputs across all targets into actionable insights
-- Build an interactive dashboard for the product team
-- Generate the real value of the project: visualizations and patterns
+:white_check_mark: COMPLETADO
 
-### Tasks
+### Objectives
+- Aggregate outputs across all targets into actionable insights ✅
+- Build an interactive dashboard for the product team ✅
+- Generate the real value of the project: visualizations and patterns ✅
+
+### Tasks completed
 
 #### Cross-analysis
-- Frustration distribution by flow, intent, agent, time period
-- Resolution rates by intent and frustration level
-- Churn patterns: which combinations of intent + frustration lead to abandonment
-- Temporal trends: how frustration evolves over the 6-month window
-- Session-level analysis: complete conversation outcomes
+- Frustration distribution by flow, intent, agent, time period :white_check_mark:
+- Resolution rates by intent and frustration level :white_check_mark:
+- Churn patterns: which combinations of intent + frustration lead to abandonment :white_check_mark:
+- Temporal trends: how frustration evolves over the 6-month window :white_check_mark:
+- Session-level analysis: complete conversation outcomes :white_check_mark:
 
 #### Dashboard (Streamlit)
-- Main KPIs: volume, resolution rate, churn rate, avg frustration
-- Filters: flow, intent, date range, agent
-- Interactive charts (plotly):
-  - Frustration distribution by flow and intent
-  - Resolution rates with drill-down
-  - Churn risk heatmap
-  - Temporal evolution of all metrics
-  - Top unresolved intents per flow
-- Data export: allow downloading filtered views as CSV
+- Main KPIs: volume, resolution rate, churn rate, avg frustration :white_check_mark:
+- Filters: flow, intent, date range, agent :white_check_mark:
+- Interactive charts (plotly) with 6-tab modular structure :white_check_mark:
+- Data export: CSV, JSON and markdown download :white_check_mark:
 
 #### Documentation
-- Document each insight with concrete examples
-- Note which findings are dataset-specific and which would generalize to real data
-- Provide recommendations for what to monitor with real data
+- Document each insight with concrete examples :white_check_mark:
+- Note which findings are dataset-specific and which would generalize to real data :white_check_mark:
+- Provide recommendations for what to monitor with real data :white_check_mark:
 
-### Deliverables
-- `notebooks/05-pattern-analysis.ipynb`
-- `dashboard/app.py` (Streamlit application)
-- `reports/insights-summary.md` with actionable recommendations
+### Deliverables completed
+- `notebooks/05-pattern-analysis.ipynb` :white_check_mark:
+- `dashboard/app.py` (modular Streamlit application, 6 tabs) :white_check_mark:
+- `reports/insights-summary.md` with actionable recommendations :white_check_mark:
 
 ---
 
